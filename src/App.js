@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Counter from './components/Counter';
 
 function App() {
+  const [countersList, setcountersList] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className='App'>
+        <h1>React Counter</h1>
+        <br />
+        <br />
+        <button
+          disabled={countersList.length >= 3}
+          onClick={() => {
+            console.log('Le lien a été cliqué.');
+            const newCountersList = [...countersList];
+            newCountersList.push(1);
+            setcountersList(newCountersList);
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Add counter
+        </button>
+        {countersList.map((element, index) => {
+          return <Counter key={index} />;
+        })}
+      </div>
+    </>
   );
 }
 
